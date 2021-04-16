@@ -1,4 +1,5 @@
-import { App, inject, InjectionKey, reactive } from 'vue';
+import { App, reactive } from 'vue';
+import { matchMediaKey } from './useApi';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -80,16 +81,6 @@ function populateRules(
   return rules;
 }
 
-export const VueMatchMediaPluginSymbol: InjectionKey<VueMatchMediaPlugin> = Symbol(
-  'VueMatchMediaPlugin'
-);
-export function useMatchMedia(): VueMatchMediaPlugin {
-  const matchMediaPlugin = inject(VueMatchMediaPluginSymbol);
-  if (!matchMediaPlugin) throw new Error('No VueMatchMediaPlugin provided!!!');
-
-  return matchMediaPlugin;
-}
-
 export function createVueMatchMediaPlugin(
   options?: VueMatchMediaPluginOptions
 ): VueMatchMediaPlugin {
@@ -152,9 +143,10 @@ export function createVueMatchMediaPlugin(
         );
 
         app.config.globalProperties.$matchMedia = matchMediaObservable;
-
-        app.provide(VueMatchMediaPluginSymbol, matchMediaObservable);
+        app.provide(matchMediaKey, matchMediaObservable)
       }
     },
   };
 }
+
+export { useMatchMedia } from './useApi';
