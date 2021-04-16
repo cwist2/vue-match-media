@@ -1,6 +1,6 @@
 {
   "name": "@cwist/vue-match-media",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "React to media query changes in your Vue 3 application (useful for adaptive design).",
   "homepage": "https://github.com/cwist2/vue-match-media",
   "bugs": {
